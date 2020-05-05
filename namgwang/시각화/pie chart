@@ -15,7 +15,7 @@
 		//color = d3.scale.category20();
 		color = ["#C1CAF8", '#C1FCF2', '#CDFFCF', '#F8FF96', '#FFC9DA']
 
-//동일한 항목은 사실 더해서 가져와야되는데..;sql문 존나 잘 짜야되는건가?
+                //동일한 항목은 사실 더해서 가져와야되는데..;sql문으로 해야할 듯.
 		var dataset = [
 			{name:"새내기 1차 정모", value:20},
 			{name:"학생회 지출", value:20},
