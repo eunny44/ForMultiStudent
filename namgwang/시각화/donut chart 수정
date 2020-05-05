@@ -15,7 +15,7 @@
 		//color = d3.scale.category20();
 		color = ["#C1CAF8", '#C1FCF2', '#CDFFCF', '#F8FF96', '#FFC9DA']
 
-   //동일한 항목은 사실 더해서 가져와야 되니까 sql 문으로 처리해야함.
+		//sql문을 동일한 항목 다 더하도록 짜든지 여기서 처리를 하든지 해야함.
 		var dataset = [
 			{name:"새내기 1차 정모", value:20},
 			{name:"학생회 지출", value:20},
@@ -51,14 +51,14 @@
 		.attr("text-anchor", "middle")
 		.attr("transform", function(d){return "translate(" + arc.centroid(d) + ")";})
 		.call(text => text.append("tspan")
-        .attr("y", "-0.4em")
-        .attr("font-weight", "bold")
-        .text(d => d.data.name))
-      	.call(text => text.filter(d => (d.endAngle - d.startAngle) > 0.25).append("tspan")
-        .attr("x", 0)
-        .attr("y", "1.2em")
-        .attr("fill-opacity", 0.7)
-        .text(d => d.data.value.toLocaleString()));
+		.attr("y", "-0.4em")
+		.attr("font-weight", "bold")
+		.text(d => d.data.name))
+		.call(text => text.filter(d => (d.endAngle - d.startAngle) > 0.25).append("tspan")
+		.attr("x", 0)
+		.attr("y", "1.2em")
+		.attr("fill-opacity", 0.7)
+		.text(d => d.data.value.toLocaleString()));
 		//.text(function(d){return d.data.name +"            "// + d.data.value;});
 
 		//일단 중간에 안오는 건 rotate값이 없어서였고
