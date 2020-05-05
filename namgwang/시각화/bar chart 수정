@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8">
+</head>
+<body>
+	<svg width="700" height="150" margin-left="5px"></svg>
+	<script src="https://d3js.org/d3.v5.min.js"></script>
+	<script>
+
+		//월마나 얼마나 썼는지.
+		var data = [
+			{name:1, value:10},
+			{name:2, value:20},
+			{name:3, value:30},
+			{name:4, value:20},
+			{name:5, value:40},
+			{name:6, value:50},
+			{name:7, value:60},
+			{name:8, value:80},
+			{name:9, value:20},
+			{name:10, value:10},
+			{name:11, value:5},
+			{name:12, value:20}
+		];
+
+		//지금은 left만 써봤음. 다 안필요하면 굳이 이렇게 할 필요는 없음..
+		var margin = ({top: 30, right: 0, bottom: 30, left: 50});
+		var bottom = 100;
+
+		//원래는 create를 했지만.. 그냥 위에다 선언하고
+		//찾아서 쓰는 걸로 해서 안쓰는 값임.
+		//var width= 300;
+		//var height = 400;
+
+		function chart()
+		{
+			//const svg = d3.create("svg")
+		    //.attr("viewBox", [0, 0, width, height]);
+			const svg = d3.select("svg");
+
+			svg.append("g")
+				.attr("transform", `translate(${margin.left},0)`)
+			    .selectAll("rect")
+			    .data(data)
+			    .join("rect")
+			    .attr("fill", function(d, i){return color[i]})
+				.attr('x', (d, i)=>{return 15 + 50*i})
+				.attr('y', (d, i)=>{return bottom - data[i].value})
+				.attr('height', (d, i)=>{return data[i].value})
+				.attr("width", 30);
+
+			svg.append("g")
+				.selectAll("text")
+				.data(data)
+				.join("text")
+				.attr("x", (d, i)=>{return margin.left + 20 +50*i })
+				.attr("y", (d, i)=>{return bottom - data[i].value-10})
+				.attr("dy", "0.35em")
+				.text((d, i)=>{return data[i].value});
+
+			svg.append("g")
+			    .call(xAxis);
+
+			svg.append("g")
+			    .call(yAxis);
+
+			return svg.node();
+		}
+
+		//x축
+		x = d3.scaleBand()
+		    .domain(d3.range(data.length))
+		    .range([0, 610])
+		    .padding(0.1);
+
+		//y축
+		y = d3.scaleLinear()
+		    .domain([0, d3.max(data, d => d.value)]).nice()
+		    .range([bottom, 20]);
+		  //.range([height - margin.bottom, margin.top]);
+
+		//console.log(height - margin.bottom);
+
+		//x축 
+		xAxis = g => g
+		    .attr("transform", `translate(${margin.left},${bottom})`)
+		    .call(d3.axisBottom(x).tickFormat(i => data[i].name).tickSizeOuter(0));
+
+		//y축
+		yAxis = g => g
+		    .attr("transform", `translate(${margin.left},0)`)
+		    .call(d3.axisLeft(y).ticks(null, data.format))
+		    .call(g => g.select(".domain").remove())
+		    .call(g => g.append("text")
+	        //.attr("x", -margin.left)
+	        //.attr("y", 10)
+	        //.attr("fill", "currentColor")
+	        //.attr("text-anchor", "start")
+	        .text(data.y));
+
+		color = ["#C1CAF8", '#C1FCF2', '#CDFFCF', '#F8FF96', '#FFC9DA',"#C1CAF8", '#C1FCF2', '#CDFFCF', '#F8FF96', '#FFC9DA',"#C1CAF8", '#C1FCF2', '#CDFFCF', '#F8FF96'];
+
+		chart();
+
+	</script>
+</body>
+</html>
