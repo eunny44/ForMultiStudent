@@ -217,7 +217,7 @@
 					<div class="myrow"><!-- 이미지와 내용 넣는 부분. -->
 						<div class="mycol-md-4 mycol-md-offset-1" style="border:1px solid grey">	
 							<div style="height:430px; width:300px; margin:0 auto;">							
-								<img src="${mtimgpath}" width=300px; height=430px;>
+								<img id="mtimg" src="${mtimgpath}" width=300px; height=430px; style="cursor:pointer;">
 							</div>				
 						</div>
 							
@@ -649,7 +649,13 @@
 			    	document.body.appendChild(form);
 			    	form.submit();
 				}
-			   			    
+			   			
+				//200628. 이미지 클릭 시 원본 크기로 보기.
+				var img = document.getElementById("mtimg");
+				img.onclick = function() {window.open(this.src)};
+				/*for (var x = 0; x < img.length; x++) {
+					img.item(x).onclick=function() {window.open(this.src)}; 
+				}*/
 			</script>
 
     	<!-- jQuery (부트스트랩의 자바스크립트 플러그인을 위해 필요합니다) -->
