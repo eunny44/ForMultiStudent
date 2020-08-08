@@ -41,4 +41,12 @@ public class WebMvcContextConfiguration extends WebMvcConfigurerAdapter {
         resolver.setSuffix(".jsp");
         return resolver;
     }
+	
+    //200808	
+    @Bean
+    public MultipartResolver multipartResolver() {
+        org.springframework.web.multipart.commons.CommonsMultipartResolver multipartResolver = new org.springframework.web.multipart.commons.CommonsMultipartResolver();
+        multipartResolver.setMaxUploadSize(10485760); // 1024 * 1024 * 10 최대 10MB까지 업로드 가능.
+        return multipartResolver;
+    }
 }
