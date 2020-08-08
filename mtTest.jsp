@@ -33,6 +33,62 @@
 	
 	<body class="is-preload no-sidebar">
 	
+		
+	<% 
+		List<MT> li = (List<MT>)request.getAttribute("mtlist");
+		
+		//200416
+		String mtimgpath = (String)request.getAttribute("mtimgpath");
+		
+		String val = (String)session.getAttribute("loginedStudentId");
+		String sid = "";
+		String isApplyed = "-1";
+		
+		for(int i=0;i<li.size();i++){
+			sid = li.get(i).getStudentId();
+			if(sid.equals(val)){
+				isApplyed = "1";
+				break;
+			}
+		}		
+	%>
+
+	<% 
+		String area = (String)request.getAttribute("area");
+		String mtTitle = (String)request.getAttribute("mtTitle");
+		String mtContent = (String)request.getAttribute("mtContent");
+		mtContent = mtContent.replaceAll("\n", "<br/>");
+		
+		String msg=" ";
+		Timestamp stamp = new Timestamp(System.currentTimeMillis());
+		Timestamp st = (Timestamp)request.getAttribute("applyStart");
+		Timestamp et = (Timestamp)request.getAttribute("applyEnd");
+		SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		
+		String startStr = (String)sdf.format(st);
+		String endStr = (String)sdf.format(et);
+		
+		System.out.println(st);
+		System.out.println(et);
+		
+		long now = stamp.getTime();
+		long startTime = st.getTime();
+		long endTime = et.getTime();
+
+		int dateCheck;
+		if( startTime <= now && now <= endTime)
+		{
+			msg = "※신청 기간입니다.";
+			dateCheck=1;
+		}
+		else {
+			msg = "※신청 기간이 아닙니다.";
+			dateCheck=0;
+		}
+	%>
+		
+		
+		
 		<div id="page-wrapper">
 
 			<!-- Header -->
